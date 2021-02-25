@@ -1,0 +1,36 @@
+body {
+    background-color: #1f1f1f;
+    color: #ffffff;
+    font-family: sans-serif, Arial, Tahoma;
+}
+
+.header {
+    text-align: center;
+}
+
+.header_board_img {
+    width: 50%;
+    height: 80px;
+}
+
+.header_img {
+    width: 80%;
+    height: 80px;
+}
+
+hr {
+    opacity: 10%;
+}
+
+.button_text {
+    display: inline-block;
+}
+
+.button_text_content {
+    color: #5f9ea8;
+    font-size: 1rem;
+}
+
+.utilities {
+    display: inline-block;
+}
