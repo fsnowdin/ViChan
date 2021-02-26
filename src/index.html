@@ -16,9 +16,27 @@
 
             <hr width="75%">
 
-            <div class="button_text">
-                <h3>[<a href="#" class="button_text_content">{{ header_start_thread_text }}</a>]</h3>
+            <div>
+                <div class="button_text" v-on:click="showNewThreadOptions" v-if="!isNewThreadButtonClicked">
+                    <h3>[<a href="#" class="button_text_content">{{ header_start_thread_text }}</a>]</h3>
+                </div>
+                <div class="button_text" v-else>
+                    <div class="new-thread-options-line">
+                        <p>{{ new_thread_options_name_title }}</p>
+                        <input id="name_input" required v-bind:placeholder="new_thread_options_name_input_placeholder" v-model="new_thread_name_input_value"/>
+                    </div>
+                    <div class="new-thread-options-line">
+                        <p>{{ new_thread_options_subject_title }}</p>
+                        <input id="title_input" required v-model="new_thread_title_input_value"/>
+                    </div>
+                    <div class="new-thread-options-line">
+                        <p>{{ new_thread_options_content_title }}</p>
+                        <input id="content_input" required v-model="new_thread_content_input_value"/>
+                    </div>
+                    <button v-on:click="postNewThread">{{ new_thread_options_post_button_text }}</button>
+                </div>
             </div>
+
 
             <hr width="50%">
 
@@ -37,6 +55,7 @@
             <div class="button_text">
                 <h3>[<a href="#" class="button_text_content">{{ archive_button_text }}</a>]</h3>
             </div>
+
         </div>
 
         <hr>

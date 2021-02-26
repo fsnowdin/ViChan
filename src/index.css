@@ -40,11 +40,33 @@ hr {
     font-size: 1rem;
 }
 
+
+/* New thread options styling */
+.new-thread-options-line {
+    text-align: left;
+    margin: 0;
+}
+
+.new-thread-options-line > p, input {
+    display: inline-block;
+}
+
+.new-thread-options-line > p {
+    display: inline-block;
+    width: 25%;
+}
+
+.new-thread-options-line > input {
+    margin-left: 10;
+}
+
+
+
 .utilities {
     display: inline-block;
 }
 
-.utilities > input:first-child {
+input {
     background-color: transparent;
     color: #ffffff;
     outline: none;
