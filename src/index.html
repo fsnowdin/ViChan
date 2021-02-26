@@ -71,7 +71,10 @@
 
         <div class="content">
             <ul>
-                <thread v-for="thread in threadList" v-bind:title="thread.title" v-bind:username="thread.username" v-bind:content="thread.content" v-bind:key="thread.id"></thread>
+                <thread v-for="thread in threadList" v-bind:title="thread.title"
+                        v-bind:username="thread.username" v-bind:content="thread.content"
+                        v-bind:img_src="thread.img_src" v-bind:date="thread.date"
+                        v-bind:key="thread.id"></thread>
             </ul>
         </div>
 

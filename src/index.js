@@ -1,52 +1,39 @@
-const App = Vue.createApp({}); // Create Vue instance with default config
-
 const content = Vue.createApp( {
     data() {
         return {
             // The list containing the page' threads
-            threadList: [
-                { id : 0, title : "hahahihi", username : "Anonymous", content : "discuss"},
-            ] ,
+            threadList: [],
         }
     },
 
     // Randomize posts
     mounted() {
-        for(i = 0; i < Math.random() * 20; i++)
+        for(i = 0; i < Math.floor(Math.random() * 36); i++)
         {
-            this.threadList.push(new Thread(Math.random() * 100, "ntuyafntuyaf", "Anonymous", "tnufatnuyanftuynf"));
+            this.threadList.push(new Thread(Math.random() * 100, randomText(50), "Anonymous", randomText(20), `../images/user/${Math.ceil(Math.random() * 10)}.png`, Date.now()));
         };
     }
 });
 
+// Vue component making up a thread
 content.component("thread", {
-    props: ["title", "username", "content"],
+    props: ["title", "username", "content", "img_src", "date"],
     template: `<div class="thread">
-                <span class="thread-title">
-
-                  <p class="title-text">{{ title }}</p>
-                  <p class="title-username">{{ username }}</p>
-                </span>
-                <p class="thread-content">{{ content }}</p>
-              </div>`
+                <img v-bind:src="img_src" class="thread-img" />
+                <div class="thread-content-container">
+                  <span class="thread-title">
+                    <p class="title-text">{{ title }}</p>
+                    <p class="title-username">{{ username }}</p>
+                    <p class="title-date">{{ date }}</p>
+                  </span>
+                  <p class="thread-content">{{ content }}</p>
+                </div>
+              </div>
+              <hr>`
 });
 
 // YOU HAVE TO MOUNT IT AND SAVE THE REFERENCE TO IT TOO
 const contentBinding = content.mount(".content");
-
-// COMPONENTS //
-
-// Thread Component
-
-// content.component("thread_title",{
-//     props: ["title", "username"],
-//     template: `<span class="thread_title">
-//                 <p id="title_text">{{ title }}</p>
-//                 <p class="title_username">{{ username }}</p>
-//               </span>`
-// });
-
-// INITIALIZE THE BINDINGS //
 
 // Bind to the board header
 const headerBinding = Vue.createApp({
@@ -79,8 +66,6 @@ const headerBinding = Vue.createApp({
     mounted() {
         const list = Board.getBoardList();
 
-        console.table(list);
-
         // Randomize the board name
         const boardNum = Math.floor(Math.random() * list.length);
         this.header_board_name = `/${list[boardNum].name}/ - ${list[boardNum].topic}`;
@@ -106,8 +91,14 @@ const headerBinding = Vue.createApp({
 
             console.log(`post new thread by ${this.new_thread_name_input_value} with subject ${this.new_thread_title_input_value} and content: ${this.new_thread_content_input_value}`);
 
+            const newThread = new Thread();
+            newThread.id = 0; // GUID soon
+            newThread.title = this.new_thread_title_input_value;
+            newThread.content = this.new_thread_content_input_value;
+            newThread.username = this.new_thread_name_input_value;
+
             // Add to the threadList
-            contentBinding.threadList.push({ id : 0, title: this.new_thread_title_input_value, username : this.new_thread_name_input_value, content : this.new_thread_content_input_value });
+            contentBinding.threadList.push(newThread);
 
             // Hide the thread options
             this.isNewThreadButtonClicked = false;
@@ -128,4 +119,17 @@ const utilitiesBinding = Vue.createApp({
             archive_button_text : "Archive"
         }
     }
+
+
 }).mount(".utilities");
+
+
+function randomText(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}

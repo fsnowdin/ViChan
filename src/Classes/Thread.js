@@ -5,12 +5,16 @@ class Thread {
     content;
     board;
     replies;
+    img_src;
+    date;
 
-    constructor(id, title, username, content) {
+    constructor(id, title, username, content, img_src, date) {
         this.id = id;
         this.title = title;
         this.username = username;
         this.content = content;
+        this.img_src = img_src;
+        this.date = date;
     }
 
     getReplies() {}
