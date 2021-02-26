@@ -16,27 +16,29 @@
 
             <hr width="75%">
 
-            <div>
+            <div id="new-thread-area">
                 <div class="button_text" v-on:click="showNewThreadOptions" v-if="!isNewThreadButtonClicked">
                     <h3>[<a href="#" class="button_text_content">{{ header_start_thread_text }}</a>]</h3>
                 </div>
-                <div class="button_text" v-else>
+                <div id="new-thread-options" v-else>
                     <div class="new-thread-options-line">
                         <p>{{ new_thread_options_name_title }}</p>
                         <input id="name_input" required v-bind:placeholder="new_thread_options_name_input_placeholder" v-model="new_thread_name_input_value"/>
                     </div>
+
                     <div class="new-thread-options-line">
                         <p>{{ new_thread_options_subject_title }}</p>
                         <input id="title_input" required v-model="new_thread_title_input_value"/>
+                        <button v-on:click="postNewThread">{{ new_thread_options_post_button_text }}</button>
                     </div>
+
                     <div class="new-thread-options-line">
                         <p>{{ new_thread_options_content_title }}</p>
-                        <input id="content_input" required v-model="new_thread_content_input_value"/>
+                        <textarea id="content_input" required rows="10" cols="30" v-model="new_thread_content_input_value"></textarea>
                     </div>
-                    <button v-on:click="postNewThread">{{ new_thread_options_post_button_text }}</button>
+                    <br>
                 </div>
             </div>
-
 
             <hr width="50%">
 
@@ -74,5 +76,7 @@
     <!-- Vue  -->
     <script src="https://unpkg.com/vue@next"></script>
 
+    <script src="./Classes/Thread.js"></script>
+    <script src="./Classes/BoardNames.js"></script>
     <script src="./index.js"></script>
 </html>
