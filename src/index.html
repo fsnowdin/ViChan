@@ -5,17 +5,19 @@
         <link rel="stylesheet" type="text/css" href="index.css"  />
     </head>
 
-    <!-- THE BODY -->
     <body>
         <div class="header">
+            <!-- A random 4chan image -->
             <img class="header_board_img" v-bind:src="header_img_src" href="#"/>
 
+            <!-- The board's name -->
             <h1>
                 {{ header_board_name }}
             </h1>
 
             <hr width="75%">
 
+            <!-- Area to create new threads -->
             <div id="new-thread-area">
                 <div class="button_text" v-on:click="showNewThreadOptions" v-if="!isNewThreadButtonClicked">
                     <h3>[<a href="#" class="button_text_content">{{ header_start_thread_text }}</a>]</h3>
@@ -28,8 +30,10 @@
 
                     <div class="new-thread-options-line">
                         <p>{{ new_thread_options_subject_title }}</p>
-                        <input id="title_input" required v-model="new_thread_title_input_value"/>
-                        <button v-on:click="postNewThread">{{ new_thread_options_post_button_text }}</button>
+                        <div id="new-thread-title-div">
+                            <input id="title_input" required v-model="new_thread_title_input_value"/>
+                            <button id="newThreadButton" v-on:click="postNewThread">{{ new_thread_options_post_button_text }}</button>
+                        </div>
                     </div>
 
                     <div class="new-thread-options-line">
@@ -42,22 +46,25 @@
 
             <hr width="50%">
 
+            <!-- Ad image for other boards -->
             <a href="#"><img class="header_ad_img" v-bind:src="header_ad_img_src" /></a>
         </div>
 
         <hr>
 
         <div class="utilities">
+            <!-- Search box -->
             <input v-bind:placeholder="search_box_placeholder_text" />
 
+            <!-- Catalog  -->
             <div class="button_text">
                 <h3>[<a href="#" class="button_text_content">{{ catalog_button_text }}</a>]</h3>
             </div>
 
+            <!-- Archive -->
             <div class="button_text">
                 <h3>[<a href="#" class="button_text_content">{{ archive_button_text }}</a>]</h3>
             </div>
-
         </div>
 
         <hr>
@@ -77,6 +84,6 @@
     <script src="https://unpkg.com/vue@next"></script>
 
     <script src="./Classes/Thread.js"></script>
-    <script src="./Classes/BoardNames.js"></script>
+    <script src="./Classes/Board.js"></script>
     <script src="./index.js"></script>
 </html>

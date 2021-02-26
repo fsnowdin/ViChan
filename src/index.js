@@ -77,14 +77,19 @@ const headerBinding = Vue.createApp({
 
     // The entry point
     mounted() {
+        const list = Board.getBoardList();
+
+        console.table(list);
+
         // Randomize the board name
-        this.header_board_name = `/${BoardNames[Math.floor(Math.random() * BoardNames.length)]}/`;
+        const boardNum = Math.floor(Math.random() * list.length);
+        this.header_board_name = `/${list[boardNum].name}/ - ${list[boardNum].topic}`;
 
         // Randomize the header board image
-        this.header_img_src = `../images/header/boards/${BoardNames[Math.floor(Math.random() * BoardNames.length)]}/header.jpg`;
+        this.header_img_src = `../images/header/boards/${list[boardNum].name}/header.jpg`;
 
         // Randomize the header ads image
-        this.header_ad_img_src = `../images/header/ads/${BoardNames[Math.floor(Math.random() * BoardNames.length)]}/header.jpg`;
+        this.header_ad_img_src = `../images/header/ads/${list[boardNum].name}/header.jpg`;
     },
 
     methods: {

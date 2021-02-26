@@ -1,4 +1,11 @@
 class Thread {
+    id;
+    title;
+    username;
+    content;
+    board;
+    replies;
+
     constructor(id, title, username, content) {
         this.id = id;
         this.title = title;

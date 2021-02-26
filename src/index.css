@@ -43,36 +43,58 @@ hr {
 
 
 /* New thread options styling */
+
+
 #new-thread-options {
     max-width: 80%;
-    /* background-color: darkred; */
+
+    display: grid;
+
     margin-left: auto;
     margin-right: auto;
 }
 
 .new-thread-options-line {
-    width: 100%;
-    /* background-color: darkblue; */
-}
-
-.new-thread-options-line > p, input, textarea, button {
-    display: inline-block;
+    display: inline-grid;
 }
 
 .new-thread-options-line > p {
-    width: 25%;
     text-align: left;
     margin: 0;
-    /* background-color: red; */
+    grid-column-start: 1;
+    grid-row-start: 1;
+    padding-left: 15px;
 }
 
 .new-thread-options-line > input {
-    margin-left: 10;
+    grid-column-start: 2;
+    grid-row-start: 1;
 }
+
+#new-thread-title-div {
+    grid-column: 2 / 2;
+    grid-row-start: 1;
+    display: grid;
+    margin: 0;
+    padding: 0;
+}
+
+#new-thread-title-div > input {
+    grid-column: 1 / 1;
+    grid-row: 1;
+}
+
+#new-thread-title-div > button {
+    grid-column: 2 / 2;
+    grid-row: 1;
+}
+
 
 .new-thread-options-line > textarea {
     margin-left: 5;
     max-width: 100%;
+    grid-column-start: 2;
+    grid-row-start: 1;
 }
 
 .utilities {
