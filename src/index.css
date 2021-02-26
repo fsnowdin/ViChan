@@ -8,14 +8,23 @@ body {
     text-align: center;
 }
 
+.header > h1 {
+    margin: 10;
+}
+
+.button_text > h3 {
+    margin: 0;
+}
+
 .header_board_img {
-    width: 50%;
+    width: 30%;
     height: 80px;
 }
 
-.header_img {
-    width: 80%;
-    height: 80px;
+
+.header_ad_img {
+    width: 50%;
+    height: 60px;
 }
 
 hr {
@@ -33,4 +42,56 @@ hr {
 
 .utilities {
     display: inline-block;
+}
+
+.utilities > input:first-child {
+    background-color: transparent;
+    color: #ffffff;
+    outline: none;
+    border-style: solid;
+    border-color: #2f2f2fff;
+}
+
+.utilities > .button_text {
+    margin-left: 10;
+}
+
+.utilities > .button_text > h3 {
+    font-size: 0.8rem;
+}
+
+.utilities > .button_text > h3 > a {
+    font-size: 0.8rem;
+}
+
+/* Thread styling */
+
+.thread {
+    background-color: #050505;
+
+    max-width: 90%;
+
+    /* breathing space  */
+    padding-left: 10px;
+    padding-bottom: 10px;
+
+    /* Spacing between the threads */
+    margin-bottom: 10px;
+}
+
+.thread-content {
+    margin-top: 0;
+    margin-bottom: 10;
+}
+
+.thread-title > p {
+    display: inline-block;
+}
+
+.thread-title > p:last-child {
+    margin-left: 10;
+}
+
+.title-text {
+    color: #9370db;
 }

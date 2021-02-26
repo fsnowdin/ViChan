@@ -8,39 +8,52 @@
     <!-- THE BODY -->
     <body>
         <div class="header">
-            <img class="header_board_img" src="../images/header/header.jpg" href="#"/>
+            <img class="header_board_img" v-bind:src="header_img_src" href="#"/>
 
-            <h1>ViChan</h1>
+            <h1>
+                {{ header_board_name }}
+            </h1>
 
             <hr width="75%">
 
             <div class="button_text">
-                <h3>[<a href="#" class="button_text_content">Create RH</a>]</h3>
+                <h3>[<a href="#" class="button_text_content">{{ header_start_thread_text }}</a>]</h3>
             </div>
 
             <hr width="50%">
 
-            <a href="#"><img class="header_img" src="../images/header/header.jpg" /></a>
+            <a href="#"><img class="header_ad_img" v-bind:src="header_ad_img_src" /></a>
         </div>
 
         <hr>
 
         <div class="utilities">
-            <input placeholder="Search OPs" />
+            <input v-bind:placeholder="search_box_placeholder_text" />
 
             <div class="button_text">
-                <h3>[<a href="#" class="button_text_content">Catalog</a>]</h3>
+                <h3>[<a href="#" class="button_text_content">{{ catalog_button_text }}</a>]</h3>
             </div>
 
             <div class="button_text">
-                <h3>[<a href="#" class="button_text_content">Archive</a>]</h3>
+                <h3>[<a href="#" class="button_text_content">{{ archive_button_text }}</a>]</h3>
             </div>
         </div>
 
         <hr>
 
         <div class="content">
-            <p>Huhu</p>
+            <ul>
+                <thread v-for="thread in threadList" v-bind:title="thread.title" v-bind:username="thread.username" v-bind:content="thread.content" v-bind:key="thread.id"></thread>
+            </ul>
+        </div>
+
+        <div class="footer">
+
         </div>
     </body>
+
+    <!-- Vue  -->
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <script src="./index.js"></script>
 </html>
