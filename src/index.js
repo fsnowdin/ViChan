@@ -27,16 +27,18 @@ content.component("thread", {
     template: `<div class="thread">
                 <div class="thread-file-info">
                   <button v-on:click="this.collapsed = !this.collapsed">Hide/Unhide</button>
-                  <p class="thread-file-name" v-if="img_src !== null">File: {{ img_filename }}</p>
+                  <p class="thread-file-name" v-if="img_src !== ''">File: {{ img_filename }}</p>
                 </div>
-                <img v-bind:src="img_src" class="thread-img" v-if="!this.collapsed"/>
-                <div class="thread-content-container">
-                  <span class="thread-title">
-                    <p class="title-text">{{ title }}</p>
-                    <p class="title-username">{{ username }}</p>
-                    <p class="title-date">{{ date }}</p>
-                  </span>
-                  <p class="thread-content" v-if="!this.collapsed">{{ content }}</p>
+                <div class="thread-content">
+                  <img v-bind:src="img_src" class="thread-img" v-if="!this.collapsed"/>
+                  <div class="thread-content-container">
+                    <span class="thread-title">
+                      <p class="title-text">{{ title }}</p>
+                      <p class="title-username">{{ username }}</p>
+                      <p class="title-date">{{ date }}</p>
+                    </span>
+                    <p class="thread-content" v-if="!this.collapsed">{{ content }}</p>
+                  </div>
                 </div>
               </div>
               <hr>`
@@ -104,7 +106,7 @@ const headerBinding = Vue.createApp({
                 return;
             }
 
-            contentBinding.threadList.push(createThread(0, this.new_thread_title_input_value, this.new_thread_content_input_value, this.new_thread_name_input_value, getCurrentTime(), this.new_thread_file_input_value));
+            contentBinding.threadList.push(createThread(0, this.new_thread_title_input_value, this.new_thread_content_input_value, this.new_thread_name_input_value, getCurrentTime(), this.new_thread_file_input_value ? "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png" : ""));
 
             // Hide the thread options
             this.isNewThreadButtonClicked = false;
@@ -141,8 +143,6 @@ const footer = Vue.createApp({
         // Add page buttons based on total thread count
         const pageCount = Math.ceil(contentBinding.threadList.length / 2);
 
-        console.log(pageCount);
-
         const baseUrl = "http://localhost:8000/#";
 
         for (let i = 1; i <= pageCount; i++) {
@@ -170,10 +170,11 @@ function createThread(id, title, content, username, date, img_src) {
     newThread.collapsed = false;
 
     // Set the image for the thread
-    newThread.img_src = img_src ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png";
+    console.log(img_src);
+    newThread.img_src = img_src ?? "";
 
     // Set the filename text
-    if (newThread.img_src !== "") {
+    if (newThread.img_src.length > 0) {
         let temp = newThread.img_src.split("/");
         newThread.img_filename = temp[temp.length - 1];
     }
