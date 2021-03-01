@@ -41,6 +41,13 @@ hr {
     font-size: 1rem;
 }
 
+input, textarea {
+    background-color: transparent;
+    color: #ffffff;
+    outline: none;
+    border-style: solid;
+    border-color: #2f2f2fff;
+}
 
 /* New thread options styling */
 
@@ -85,6 +92,7 @@ hr {
     width: 100%;
 }
 
+
 #new-thread-title-div > button {
     grid-column: 2;
 }
@@ -98,14 +106,6 @@ hr {
 
 .utilities {
     display: inline-block;
-}
-
-input, textarea {
-    background-color: transparent;
-    color: #ffffff;
-    outline: none;
-    border-style: solid;
-    border-color: #2f2f2fff;
 }
 
 .utilities > .button_text {

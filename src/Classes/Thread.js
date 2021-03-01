@@ -16,14 +16,4 @@ class Thread {
         this.img_src = img_src;
         this.date = date;
     }
-
-    getReplies() {}
-
-    getUsername() {}
-
-    getTitle() {}
-
-    getContent() {}
-
-    getId() {}
 }

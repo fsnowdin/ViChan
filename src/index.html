@@ -40,7 +40,9 @@
                         <p>{{ new_thread_options_content_title }}</p>
                         <textarea id="content_input" required rows="10" cols="30" v-model="new_thread_content_input_value"></textarea>
                     </div>
-                    <br>
+
+                    <!-- The filepicker -->
+                    <input type="file" id="new-thread-options-filepicker" v-on:change="storeFilepickerValue" accept="image/*" />
                 </div>
             </div>
 

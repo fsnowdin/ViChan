@@ -1,4 +1,4 @@
-const content = Vue.createApp( {
+const content = Vue.createApp({
     data() {
         return {
             // The list containing the page' threads
@@ -10,7 +10,9 @@ const content = Vue.createApp( {
     mounted() {
         for(i = 0; i < Math.floor(Math.random() * 36); i++)
         {
-            this.threadList.push(new Thread(Math.random() * 100, randomText(50), "Anonymous", randomText(20), `../images/user/${Math.ceil(Math.random() * 10)}.png`, Date.now()));
+            if (i > 14) break; // Only show 15 threads in the page at a time
+
+            this.threadList.push(new Thread(Math.random() * 100, randomText(50), "Anonymous", randomText(20), `/images/user/${Math.ceil(Math.random() * 10)}.png`, Date.now()));
         };
     }
 });
@@ -59,6 +61,7 @@ const headerBinding = Vue.createApp({
             new_thread_name_input_value: "Anonymous",
             new_thread_title_input_value: "",
             new_thread_content_input_value: "",
+            new_thread_file_input_value: "", // Stores the value of the filepicker
         }
     },
 
@@ -71,16 +74,20 @@ const headerBinding = Vue.createApp({
         this.header_board_name = `/${list[boardNum].name}/ - ${list[boardNum].topic}`;
 
         // Randomize the header board image
-        this.header_img_src = `../images/header/boards/${list[boardNum].name}/header.jpg`;
+        this.header_img_src = `/images/header/boards/${list[boardNum].name}/header.jpg`;
 
         // Randomize the header ads image
-        this.header_ad_img_src = `../images/header/ads/${list[boardNum].name}/header.jpg`;
+        this.header_ad_img_src = `/images/header/ads/${list[boardNum].name}/header.jpg`;
     },
 
     methods: {
         showNewThreadOptions() {
-            console.log("showing new thread options");
             this.isNewThreadButtonClicked = !this.isNewThreadButtonClicked;
+        },
+
+        // Because we can't simply use v-model on the filepicker, a v-on:change hack is needed to store the uploaded file
+        storeFilepickerValue(event) {
+            this.new_thread_file_input_value = event.target.files.length > 0 ? event.target.files[0] : null;
         },
 
         postNewThread() {
@@ -89,13 +96,27 @@ const headerBinding = Vue.createApp({
                 return;
             }
 
-            console.log(`post new thread by ${this.new_thread_name_input_value} with subject ${this.new_thread_title_input_value} and content: ${this.new_thread_content_input_value}`);
-
             const newThread = new Thread();
             newThread.id = 0; // GUID soon
             newThread.title = this.new_thread_title_input_value;
             newThread.content = this.new_thread_content_input_value;
             newThread.username = this.new_thread_name_input_value;
+            newThread.date = Date.now();
+
+            newThread.img_src = this.new_thread_file_input_value ? "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png" : "";
+
+            // Read image with FileReader
+            // if (this.new_thread_file_input_value) {
+            //     console.log(this.new_thread_file_input_value);
+            //     let reader = new FileReader();
+
+            //     // reader.addEventListener("load", function() {
+            //     //     // Convert image file to base64 string
+            //     //     newThread.img_src = reader.result;
+            //     // }, false);
+
+            //     newThread.img_src = reader.readAsDataURL(this.new_thread_file_input_value);
+            // }
 
             // Add to the threadList
             contentBinding.threadList.push(newThread);
@@ -107,6 +128,7 @@ const headerBinding = Vue.createApp({
             this.new_thread_name_input_value = "Anonymous";
             this.new_thread_title_input_value = "";
             this.new_thread_content_input_value = "";
+            this.new_thread_file_input_value = null;
         }
     }
 }).mount(".header");
@@ -122,7 +144,6 @@ const utilitiesBinding = Vue.createApp({
 
 
 }).mount(".utilities");
-
 
 function randomText(length) {
     var result           = '';
