@@ -7,6 +7,7 @@ class Thread {
     replies;
     img_src;
     date;
+    img_filename;
 
     constructor(id, title, username, content, img_src, date) {
         this.id = id;

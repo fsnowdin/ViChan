@@ -13,7 +13,7 @@ body {
     margin: 10;
 }
 
-.button_text > h3 {
+.button-text > h3 {
     margin: 0;
 }
 
@@ -32,11 +32,11 @@ hr {
     opacity: 10%;
 }
 
-.button_text {
+.button-text {
     display: inline-block;
 }
 
-.button_text_content {
+.button-text-content {
     color: #5f9ea8;
     font-size: 1rem;
 }
@@ -108,35 +108,43 @@ input, textarea {
     display: inline-block;
 }
 
-.utilities > .button_text {
+.utilities > .button-text {
     margin-left: 10;
 }
 
-.utilities > .button_text > h3 {
+.utilities > .button-text > h3 {
     font-size: 0.8rem;
 }
 
-.utilities > .button_text > h3 > a {
+.utilities > .button-text > h3 > a {
     font-size: 0.8rem;
 }
+
 
 /* Thread styling */
+
+.content {
+    /* background-color: red; */
+    max-width: 99%;
+}
 
 .thread {
     /* background-color: #050505; */
 
-    max-width: 100%;
-
-    /* background-color: blue; */
-
     /* breathing space  */
     /* Spacing between the threads */
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
+    margin: 0;
 
     display: grid;
     grid-template-columns: fit-content(25%) fit-content(75%);
 
     font-size: 0.8rem;
+}
+
+.thread-file-info > * {
+    display: inline-block;
+    margin-right: 10px;
 }
 
 .thread-img {
@@ -169,4 +177,20 @@ input, textarea {
 
 .title-username {
     font-weight: bold;
+}
+
+
+/* Footer Styling */
+.footer {
+    max-width: 100%;
+}
+
+.page-buttons {
+    max-width: 50%;
+    display: inline-block;
+}
+
+.page-buttons > .button-text {
+    margin-top: 0;
+    margin-right: 5px;
 }

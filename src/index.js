@@ -1,3 +1,5 @@
+'use strict';
+
 const content = Vue.createApp({
     data() {
         return {
@@ -8,27 +10,33 @@ const content = Vue.createApp({
 
     // Randomize posts
     mounted() {
-        for(i = 0; i < Math.floor(Math.random() * 36); i++)
-        {
-            if (i > 14) break; // Only show 15 threads in the page at a time
-
-            this.threadList.push(new Thread(Math.random() * 100, randomText(50), "Anonymous", randomText(20), `/images/user/${Math.ceil(Math.random() * 10)}.png`, Date.now()));
+        for(let i = 0; i < Math.floor(Math.random() * 60); i++) {
+            this.threadList.push(createThread(Math.random() * 100, randomText(50), randomText(20), "Anonymous", getCurrentTime(), `/images/user/${Math.ceil(Math.random() * 10)}.png`));
         };
     }
 });
 
 // Vue component making up a thread
 content.component("thread", {
-    props: ["title", "username", "content", "img_src", "date"],
+    data() {
+        return {
+            collapsed: false
+        }
+    },
+    props: ["title", "username", "content", "img_src", "date", "img_filename"],
     template: `<div class="thread">
-                <img v-bind:src="img_src" class="thread-img" />
+                <div class="thread-file-info">
+                  <button v-on:click="this.collapsed = !this.collapsed">Hide/Unhide</button>
+                  <p class="thread-file-name" v-if="img_src !== null">File: {{ img_filename }}</p>
+                </div>
+                <img v-bind:src="img_src" class="thread-img" v-if="!this.collapsed"/>
                 <div class="thread-content-container">
                   <span class="thread-title">
                     <p class="title-text">{{ title }}</p>
                     <p class="title-username">{{ username }}</p>
                     <p class="title-date">{{ date }}</p>
                   </span>
-                  <p class="thread-content">{{ content }}</p>
+                  <p class="thread-content" v-if="!this.collapsed">{{ content }}</p>
                 </div>
               </div>
               <hr>`
@@ -96,30 +104,7 @@ const headerBinding = Vue.createApp({
                 return;
             }
 
-            const newThread = new Thread();
-            newThread.id = 0; // GUID soon
-            newThread.title = this.new_thread_title_input_value;
-            newThread.content = this.new_thread_content_input_value;
-            newThread.username = this.new_thread_name_input_value;
-            newThread.date = Date.now();
-
-            newThread.img_src = this.new_thread_file_input_value ? "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png" : "";
-
-            // Read image with FileReader
-            // if (this.new_thread_file_input_value) {
-            //     console.log(this.new_thread_file_input_value);
-            //     let reader = new FileReader();
-
-            //     // reader.addEventListener("load", function() {
-            //     //     // Convert image file to base64 string
-            //     //     newThread.img_src = reader.result;
-            //     // }, false);
-
-            //     newThread.img_src = reader.readAsDataURL(this.new_thread_file_input_value);
-            // }
-
-            // Add to the threadList
-            contentBinding.threadList.push(newThread);
+            contentBinding.threadList.push(createThread(0, this.new_thread_title_input_value, this.new_thread_content_input_value, this.new_thread_name_input_value, getCurrentTime(), this.new_thread_file_input_value));
 
             // Hide the thread options
             this.isNewThreadButtonClicked = false;
@@ -133,6 +118,7 @@ const headerBinding = Vue.createApp({
     }
 }).mount(".header");
 
+
 const utilitiesBinding = Vue.createApp({
     data() {
         return {
@@ -141,9 +127,73 @@ const utilitiesBinding = Vue.createApp({
             archive_button_text : "Archive"
         }
     }
-
-
 }).mount(".utilities");
+
+
+const footer = Vue.createApp({
+    data() {
+        return {
+            pageList: []
+        };
+    },
+
+    mounted() {
+        // Add page buttons based on total thread count
+        const pageCount = Math.ceil(contentBinding.threadList.length / 2);
+
+        console.log(pageCount);
+
+        const baseUrl = "http://localhost:8000/#";
+
+        for (let i = 1; i <= pageCount; i++) {
+            this.pageList.push(new PageButton(`${baseUrl}${i}`, i));
+        }
+    }
+});
+
+footer.component("page-button", {
+    props: ["link", "count"],
+    template: `<p class="button-text">[<a v-bind:href="link" class="button-text-content">{{ count }}</a>]</p>`
+});
+
+const footerBinding = footer.mount(".footer");
+
+
+// Create a thread object
+function createThread(id, title, content, username, date, img_src) {
+    const newThread = new Thread();
+    newThread.id = title; // GUID soon
+    newThread.title = title;
+    newThread.content = content;
+    newThread.username = username;
+    newThread.date = date;
+    newThread.collapsed = false;
+
+    // Set the image for the thread
+    newThread.img_src = img_src ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png";
+
+    // Set the filename text
+    if (newThread.img_src !== "") {
+        let temp = newThread.img_src.split("/");
+        newThread.img_filename = temp[temp.length - 1];
+    }
+
+    // Read image with FileReader
+    // if (this.new_thread_file_input_value) {
+    //     console.log(this.new_thread_file_input_value);
+    //     let reader = new FileReader();
+
+    //     // reader.addEventListener("load", function() {
+    //     //     // Convert image file to base64 string
+    //     //     newThread.img_src = reader.result;
+    //     // }, false);
+
+    //     newThread.img_src = reader.readAsDataURL(this.new_thread_file_input_value);
+    // }
+
+    return newThread;
+}
+
 
 function randomText(length) {
     var result           = '';
@@ -153,4 +203,9 @@ function randomText(length) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
+}
+
+
+function getCurrentTime() {
+    return Date.now();
 }
