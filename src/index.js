@@ -71,6 +71,7 @@ const headerBinding = Vue.createApp({
             new_thread_options_subject_title: "Subject",
             new_thread_options_content_title: "Comment",
             new_thread_options_post_button_text: "Post",
+            new_thread_options_close_button_text: "Close",
             // v-model are 2-way bindings
             new_thread_name_input_value: "Anonymous",
             new_thread_title_input_value: "",
@@ -174,7 +175,6 @@ function createThread(id, title, content, username, date, img_src) {
     newThread.collapsed = false;
 
     // Set the image for the thread
-    console.log(img_src);
     newThread.img_src = img_src ?? "";
 
     // Set the filename text
