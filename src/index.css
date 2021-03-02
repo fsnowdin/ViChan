@@ -58,6 +58,8 @@ input, textarea {
     margin-left: auto;
     margin-right: auto;
 }
+
+/* Align the title texts */
 #new-thread-options > div > p {
     text-align: left;
 }
@@ -113,6 +115,16 @@ input, textarea {
 #new-thread-options-filepicker {
     grid-column: 1 / 2;
     grid-row: 4;
+    outline: none;
+    border: none;
+}
+
+/* Close button  */
+#new-thread-options > *:last-child {
+    grid-column: 1 / 2;
+    width: 25%;
+    grid-row: 5;
+    margin: 0 auto;
 }
 
 
