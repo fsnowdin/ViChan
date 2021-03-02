@@ -37,7 +37,7 @@ content.component("thread", {
                       <p class="title-username">{{ username }}</p>
                       <p class="title-date">{{ date }}</p>
                     </span>
-                    <p class="thread-content" v-if="!this.collapsed">{{ content }}</p>
+                    <p class="thread-text-content" v-if="!this.collapsed">{{ content }}</p>
                   </div>
                 </div>
               </div>

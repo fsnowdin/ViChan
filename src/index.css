@@ -124,16 +124,12 @@ input, textarea {
 /* Thread styling */
 
 .content {
-    /* background-color: red; */
     max-width: 99%;
 }
 
 .thread {
-    /* background-color: #050505; */
+    max-width: 100%;
 
-    /* breathing space  */
-    /* Spacing between the threads */
-    /* margin-bottom: 10px; */
     margin: 0;
 
     display: grid;
@@ -154,8 +150,12 @@ input, textarea {
 .thread-content {
     grid-column: 1;
     grid-row: 2;
+
     display: grid;
+
     grid-template-columns: fit-content(25%) fit-content(75%);
+
+    max-width: 100%;
 }
 
 .thread-img {
@@ -168,15 +168,13 @@ input, textarea {
 .thread-content-container {
     grid-column: 2;
     grid-row: 1;
+
     padding-left: 15px;
     padding-right: 15px;
-    /* background-color: red; */
+
     max-width: 100%;
     max-height: 100%;
-}
 
-.thread-content {
-    max-width: 100%;
 }
 
 .thread-title > p {
@@ -192,6 +190,13 @@ input, textarea {
     font-weight: bold;
 }
 
+.thread-text-content {
+    max-width: 100%;
+
+    /* Reminder that CSS fkin' sucks */
+    word-wrap: break-word;
+    word-break: break-word;
+}
 
 /* Footer Styling */
 .footer {
