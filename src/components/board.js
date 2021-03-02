@@ -1,4 +1,4 @@
-class Board {
+export default class Board {
     name;
     topic;
 

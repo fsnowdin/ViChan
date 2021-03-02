@@ -1,4 +1,4 @@
-class Thread {
+export default class Thread {
     id;
     title;
     username;

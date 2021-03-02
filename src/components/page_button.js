@@ -1,4 +1,4 @@
-class PageButton {
+export default class PageButton {
     link;
     count;
 

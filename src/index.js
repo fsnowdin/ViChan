@@ -1,5 +1,9 @@
 'use strict';
 
+import Board from "./components/board.js";
+import Thread from "./components/thread.js";
+import PageButton from "./components/page_button.js";
+
 const content = Vue.createApp({
     data() {
         return {
