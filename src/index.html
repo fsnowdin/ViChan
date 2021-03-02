@@ -16,9 +16,7 @@
             <img class="header_board_img" v-bind:src="header_img_src" href="#"/>
 
             <!-- The board's name -->
-            <h1>
-                {{ header_board_name }}
-            </h1>
+            <h1>{{ header_board_name }}</h1>
 
             <hr width="75%">
 
@@ -28,20 +26,20 @@
                     <h3>[<a href="#" class="button-text-content">{{ header_start_thread_text }}</a>]</h3>
                 </div>
                 <div id="new-thread-options" v-else>
-                    <div class="new-thread-options-line">
+                    <div class="new-thread-options-name-container">
                         <p>{{ new_thread_options_name_title }}</p>
                         <input id="name_input" required v-bind:placeholder="new_thread_options_name_input_placeholder" v-model="new_thread_name_input_value"/>
                     </div>
 
-                    <div class="new-thread-options-line">
+                    <div class="new-thread-options-subject-container">
                         <p>{{ new_thread_options_subject_title }}</p>
-                        <div id="new-thread-title-div">
-                            <input id="title_input" required v-model="new_thread_title_input_value"/>
-                            <button id="newThreadButton" v-on:click="postNewThread">{{ new_thread_options_post_button_text }}</button>
+                        <div>
+                          <input id="title_input" required v-model="new_thread_title_input_value"/>
+                          <button id="newThreadButton" v-on:click="postNewThread">{{ new_thread_options_post_button_text }}</button>
                         </div>
                     </div>
 
-                    <div class="new-thread-options-line">
+                    <div class="new-thread-options-content-container">
                         <p>{{ new_thread_options_content_title }}</p>
                         <textarea id="content_input" required rows="10" cols="30" v-model="new_thread_content_input_value"></textarea>
                     </div>
@@ -69,13 +67,14 @@
             </div>
 
             <!-- Archive -->
-            <div class="button-text">
-                <h3>[<a href="#" class="button-text-content">{{ archive_button_text }}</a>]</h3>
-            </div>
+            <!-- <div class="button-text">
+                 <h3>[<a href="#" class="button-text-content">{{ archive_button_text }}</a>]</h3>
+                 </div> -->
         </div>
 
         <hr>
 
+        <!-- Threads -->
         <div class="content">
             <thread v-for="thread in threadList" v-bind:title="thread.title"
                     v-bind:username="thread.username" v-bind:content="thread.content"
@@ -85,6 +84,7 @@
         </div>
 
         <div class="footer">
+            <!-- Page navigation -->
             <div class="page-buttons">
                 <button >Previous</button>
                 <page-button v-for="page in pageList" v-bind:link="page.link" v-bind:count="page.count" v-bind:key="page.count"></page-button>
